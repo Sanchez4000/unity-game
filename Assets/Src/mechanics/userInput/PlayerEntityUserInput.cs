@@ -1,11 +1,9 @@
-using Src.Interfaces;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Src.mechanics.entity.interfaces;
 using UnityEngine;
 
-namespace Src.Scripts
+namespace Assets.Src.mechanics.userInput
 {
-    public class UserInput : MonoBehaviour
+    public class PlayerEntityUserInput : MonoBehaviour
     {
         private IDirectionalMovable _moveComponent;
         private Transform _transform;
@@ -20,22 +18,22 @@ namespace Src.Scripts
             _moveComponent = GetComponent<IDirectionalMovable>();
             _transform = GetComponent<Transform>();
         }
-
         private void Update()
         {
             var direction = Vector3.zero;
 
             if (MoveForward)
-                direction += _transform.forward;
+                direction += Vector3.forward;
             else if (MoveBackward)
-                direction -= _transform.forward;
+                direction += Vector3.back;
 
             if (MoveRight)
-                direction += _transform.right;
+                direction += Vector3.right;
             else if (MoveLeft)
-                direction -= _transform.right;
+                direction += Vector3.left;
 
-            _moveComponent.Move(direction);
+            if (direction != Vector3.zero)
+                _moveComponent.Move(direction);
         }
     }
 }
